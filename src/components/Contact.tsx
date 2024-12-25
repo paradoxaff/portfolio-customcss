@@ -1,48 +1,96 @@
-import React from 'react'
-import { IoMail } from "react-icons/io5";
-import { BsFillTelephoneFill } from "react-icons/bs";
+import React, { useState } from "react";
+import { AiOutlineMail } from "react-icons/ai";
+import { BsTelephone } from "react-icons/bs";
+import '../app/styles/contact.css';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = event.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();  // To prevent the default form submission
+    // Add form data processing logic here (backend or email sending)
+    console.log(formData);
+  };
+
   return (
-    <div id='Contact' className='pt-2 container'>
-      <div className='grid md:grid-cols-2 gap-10'>
-        <div className='space-y-8'>
-            <h2 className='text-6xl' data-aos="zoom-in-up">Get in touch</h2>
-            <p className='text gray-600 text-[20px] pt-2' data-aos="zoom-in-up">
-                Drop me a line,give me a call,or send me a message by submitting the form.
+    <form onSubmit={handleSubmit}>
+      <div id="contact" className="contact-container">
+        <div className="contact-grid md:grid-cols-2">
+          {/* Contact Info Section */}
+          <div className="contact-space">
+            <h2 className="contact-heading" data-aos="zoom-in-up">
+              Get in touch
+            </h2>
+            <p className="contact-text" data-aos="zoom-in-up">
+              Drop me a line, give me a call, or send me a message by submitting the form.
             </p>
-            <div className='flex gap-3 items-center' data-aos="zoom-in-up">
-                <IoMail size={30} /> waheedaffan@25gmail.com
+
+            <div className="contact-flex" data-aos="zoom-in-up">
+              <AiOutlineMail size={30} /> 
+              <a href="mailto:xyz@gmail.com">xyz@gmail.com</a>
             </div>
-            <div className='flex gap-3 items-center' data-aos="zoom-in-up">
-            <BsFillTelephoneFill size={30} /> +923112479711
+            <div className="contact-flex" data-aos="zoom-in-up">
+              <BsTelephone size={30} /> 
+              <a href="tel:+02100000000">(021) 000-0000</a>
             </div>
-        </div>
-        <div className='space-y-8' >
-            <div className='flex flex-col gap-1'data-aos="zoom-in-up">
-                <label htmlFor="name">Name</label>
-                <input type="text" 
-                className='h-[40px] bg-transparent border-accent'
-                id='name'/>
+          </div>
+
+          {/* Contact Form Section */}
+          <div className="contact-space">
+            <div className="form" data-aos="zoom-in-up">
+              <label htmlFor="name">Name</label>
+              <input 
+                type="text" 
+                className="input-field" 
+                id="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                required 
+              />
             </div>
-            <div className='flex flex-col gap-1'data-aos="zoom-in-up">
-                <label htmlFor="email">Email</label>
-                <input type="text" 
-                className='h-[40px] bg-transparent border-accent'
-                id='email'/>
+            <div className="form" data-aos="zoom-in-up">
+              <label htmlFor="email">Email</label>
+              <input 
+                type="email" 
+                className="input-field" 
+                id="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                required 
+              />
             </div>
-            <div className='flex flex-col gap-1'data-aos="zoom-in-up">
-                <label htmlFor="message">Message</label>
-                <textarea
-                className='h-[100px] bg-transparent border-accent'
-                id='message'>
-                </textarea>
+            <div className="form" data-aos="zoom-in-up">
+              <label htmlFor="msg">Message</label>
+              <textarea 
+                className="textarea-field" 
+                id="msg" 
+                rows={8} 
+                value={formData.message} 
+                onChange={handleChange} 
+                required 
+              ></textarea>
             </div>
-            <button className='bg-gradient-to-r from-violet-600 to-indigo-600 p-2 px-6'data-aos="zoom-in-up">Send</button>
+
+            <button className="button" data-aos="zoom-in-up" type="submit">
+              Send
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </form>
+  );
+};
 
-export default Contact
+export default Contact;

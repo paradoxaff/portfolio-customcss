@@ -1,11 +1,13 @@
-import React from 'react'
+
+import React from "react";
+import '../app/styles/footer.css';
 
 const Footer = () => {
   return (
-    <div id='Footer' className='mt-16 py-6 text-center bg-gradient-to-r from-violet-600 to-indigo-600'>
-      © Affan | All right reserved 2024.
+    <div className="footer">
+      © Affan | All rights reserved 2024.
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

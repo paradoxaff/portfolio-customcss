@@ -1,38 +1,47 @@
-import React from 'react'
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import '../app/styles/card.css';
 
-interface propsType{
-    title:string;
-    desc:string;
-    img:string;
-    tags:string[];
-};
-
-const Card:React.FC<propsType> = ({title,desc,img,tags}) => {
-  return (
-    <div className='border border-accent w-[300px] sm:w-[350]'data-aos="zoom-in-up">    
-    <div>
-        <Image className='w-[300px] sm:w-[350] h-auto'  
-        src={img}
-        width={350}
-        height={350}
-        alt={title}
-        />
-    </div>
-
-<div className='p-4 space-y-4'>
-    <div className='text-4xl font-extralight'>{title}</div>
-    <div>{desc}</div>
-    <div>
-        {tags.map((el) => (
-            <div className='tags'key={el}>
-                {el}
-            </div>))}
-    </div>
-</div>
-
-    </div>
-  )
+interface propsType {
+  title: string;
+  desc: string;
+  img: string;
+  tags: string[];
 }
 
-export default Card
+const Card: React.FC<propsType> = ({ title, desc, img, tags }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check window width on client side
+    setIsMobile(window.innerWidth < 640);
+  }, []);
+
+  return (
+    <div className={`card ${isMobile ? '' : 'card-sm'}`} data-aos="zoom-in-up">
+      <div>
+        <Image
+          className={`card-image ${isMobile ? '' : 'card-image-sm'}`}
+          src={img}
+          width={350}
+          height={350}
+          alt={title}
+        />
+      </div>
+
+      <div className="card-content">
+        <div className="card-title">{title}</div>
+        <div>{desc}</div>
+        <div>
+          {tags.map((el) => (
+            <div className="card-tags" key={el}>
+              {el}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Card;
